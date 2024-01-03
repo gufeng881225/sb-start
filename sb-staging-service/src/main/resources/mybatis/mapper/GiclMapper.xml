@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sb.staging.mapper.GiclMapper">
+
+    <resultMap id="giclMap" type="com.sb.staging.domain.Gicl">
+        <result property="policyNo" column="policy_no" />
+        <result property="clientId" column="client_id"/>
+    </resultMap>
+
+    <sql id="FIELDS">
+        policy_no, client_id
+    </sql>
+
+    <select id="selectByPolicyNo" parameterType="String" resultMap="giclMap">
+        SELECT
+        <include refid="FIELDS" />
+        FROM gicl
+        WHERE policy_no = #{policyNo}
+        LIMIT 1
+    </select>
+
+
+    <select id="selectAll" resultMap="giclMap">
+        SELECT
+        <include refid="FIELDS" />
+        FROM gicl
+    </select>
+</mapper>

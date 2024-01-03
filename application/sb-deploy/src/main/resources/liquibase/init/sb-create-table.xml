@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="gwang (generated)" id="1662447798075-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="esb_message_pipeline_map"/>
+            </not>
+        </preConditions>
+        <createTable tableName="esb_message_pipeline_map">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="esb_message_pipeline_map_pkey"/>
+            </column>
+            <column name="create_by" type="VARCHAR(50)"/>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="update_by" type="VARCHAR(50)"/>
+            <column name="update_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="version" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pipeline_el_express" type="VARCHAR(4096)"/>
+            <column name="topic" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="fgu" id="20231101001">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="gicl"/>
+            </not>
+        </preConditions>
+        <createTable tableName="gicl">
+            <column name="policy_no" type="VARCHAR(20)"/>
+            <column name="client_id" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

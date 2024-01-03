@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  sb-deploy:
+    build: ./../../application/sb-deploy
+    container_name: sb-deploy
+    hostname: sb-deploy
+    networks:
+      - sb-net
+    env_file:
+      - local.env
+      
+  integration-services-app:
+    build: ./../../application/sb-app
+    container_name: sb-app
+    hostname: sb-app
+    privileged: true
+    volumes:
+      - "vol_sb:/home/eisci/data:rw"    # 只有在默认用户下, 才有完整的访问读写权限
+    networks:
+      - sb-net
+    ports:
+      - "7070:7070"
+      - "1999:1999"
+    env_file:
+      - local.env
+    depends_on:
+      - sb-deploy
+    environment:
+      EXTERNAL_IP: sb-app
+      JAVA_OPTS: '-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:1999'
+
+
+
+networks:
+  sb-net:
+    driver: bridge
+
+volumes:
+  vol_sb:

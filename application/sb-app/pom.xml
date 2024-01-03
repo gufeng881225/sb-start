@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>application</artifactId>
+        <groupId>sb.appilication</groupId>
+        <version>${rversion}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sb-app</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sb.common.service</groupId>
+            <artifactId>sb-common-service</artifactId>
+            <version>${rversion}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb.staging.service</groupId>
+            <artifactId>sb-staging-service</artifactId>
+            <version>${rversion}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <layout>ZIP</layout>
+                    <classifier>fat</classifier>
+                    <attach>false</attach>
+                    <mainClass>com.sb.SbApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.sb.SbApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <version>3.3.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

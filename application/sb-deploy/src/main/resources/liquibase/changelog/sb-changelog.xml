@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="202209160001" author="qiangzhang">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT count(*) FROM esb_message_pipeline_map WHERE pipeline_el_express = 'amlAsync' and topic='aml_request'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="esb_message_pipeline_map">
+            <column name="id" value="c33db684-ed5d-4e56-bac9-0a6655d103a1" />
+            <column name="create_by" value="SYSTEM" />
+            <column name="create_date" value="now()" />
+            <column name="update_by" value="SYSTEM" />
+            <column name="update_date" value="now()" />
+            <column name="version" value="0" />
+            <column name="pipeline_el_express" value="amlAsync" />
+            <column name="topic" value="aml_request" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="202209160008" author="qiangzhang">
+        <sql>delete from esb_message_pipeline_map WHERE pipeline_el_express = 'amlAsync2' and topic='aml_request2'</sql>
+    </changeSet>
+</databaseChangeLog>

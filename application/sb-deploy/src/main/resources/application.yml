@@ -1,0 +1,23 @@
+server:
+  port: 7071
+
+liquibase:
+  datasource:
+    init:
+      driver: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/mli_dev_v20?useSSL=false&useUnicode=true&characterEncoding=utf-8
+      username: admin
+      password: admin
+      liquibase:
+        enabled: true
+        drop-first: false
+        change-log: classpath:/liquibase/sb-init-config.xml
+    sb:
+      driver: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/mli_dev_v20?currentSchema=sb_main&useSSL=false&useUnicode=true&characterEncoding=utf-8
+      username: admin
+      password: admin
+      liquibase:
+        enabled: true
+        drop-first: false
+        change-log: classpath:/liquibase/sb-changelog-config.xml
