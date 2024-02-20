@@ -1,38 +1,20 @@
 package com.sb.staging.domain;
 
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 
+@Data
 public class Student implements Serializable {
 
     private static final long serialVersionUID = -6060343040263809614L;
 
+    @Id
+    private Long id;
     private String name;
     private String code;
     private String year;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
 
     public Student() {
     }

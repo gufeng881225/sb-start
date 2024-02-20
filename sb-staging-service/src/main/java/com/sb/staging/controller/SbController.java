@@ -11,13 +11,14 @@ import com.sb.staging.service.AnimalService;
 import com.sb.staging.service.GiclService;
 import com.sb.staging.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.Schedules;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,8 @@ public class SbController {
     private final AgentService agentService;
 
     private final KafkaTemplate kafkaTemplate;
+
+    private final MongoTemplate mongoTemplate;
 
     @RequestMapping("/m1")
     public void m1() {
@@ -125,6 +128,28 @@ public class SbController {
             //kafkaTemplate.send("sb_topic_1", ObjectUtils.getDataJson(teacher));
             kafkaTemplate.send("sb_topic_3", ObjectUtils.getDataJson(teacher));
         }
+    }
+
+    @RequestMapping("/mg1")
+    public void mg1() {
+        Student student = new Student();
+        student.setId(6l);
+        student.setName("宋人头");
+        mongoTemplate.save(student);
+    }
+
+    @RequestMapping("/mg2")
+    public void mg2() {
+        Student student = new Student();
+        student.setId(6l);
+        student.setName("宋人头XX");
+        Query query = new Query(Criteria.where("id").is(student.getId()));
+
+        //修改的内容
+        Update update = new Update();
+        update.set("name", student.getName());
+
+        mongoTemplate.updateFirst(query, update, Student.class);
     }
 
     /**
