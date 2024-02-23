@@ -10,6 +10,8 @@ spring:
   data:
     mongodb:
       database: sb
+      host: 127.0.0.1
+      port: 27017
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

@@ -11,7 +11,7 @@ public class Student implements Serializable {
     private static final long serialVersionUID = -6060343040263809614L;
 
     @Id
-    private Long id;
+    private String id;
     private String name;
     private String code;
     private String year;

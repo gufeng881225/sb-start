@@ -1,5 +1,8 @@
 package com.sb.staging.controller;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.sb.common.domain.Agent;
 import com.sb.staging.domain.Gicl;
 import com.sb.staging.domain.Student;
@@ -11,7 +14,10 @@ import com.sb.staging.service.AnimalService;
 import com.sb.staging.service.GiclService;
 import com.sb.staging.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
+import org.bson.Document;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.SetOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -133,23 +139,41 @@ public class SbController {
     @RequestMapping("/mg1")
     public void mg1() {
         Student student = new Student();
-        student.setId(6l);
-        student.setName("宋人头");
-        mongoTemplate.save(student);
+        student.setName("jack");
+        student.setYear("2024");
+        mongoTemplate.save(student, "c3");
     }
 
     @RequestMapping("/mg2")
     public void mg2() {
-        Student student = new Student();
-        student.setId(6l);
-        student.setName("宋人头XX");
-        Query query = new Query(Criteria.where("id").is(student.getId()));
+        Query query = new Query(Criteria.where("name").is("jack"));
 
         //修改的内容
         Update update = new Update();
-        update.set("name", student.getName());
+        update.set("name", "TOM");
 
-        mongoTemplate.updateFirst(query, update, Student.class);
+        mongoTemplate.updateMulti(query, update, Student.class, "c3");
+    }
+
+    @RequestMapping("/mg3")
+    public void mg3() {
+        Query query = new Query(Criteria.where("name").is("jack"));
+        Document document = new Document();
+        document.append("name", "TOM_cover_all");
+        Update coverUpdate = Update.fromDocument(document);
+        mongoTemplate.updateMulti(query, coverUpdate, Student.class, "c3");
+    }
+
+    @RequestMapping("/mg4")
+    public ResponseEntity<List<Student>> mg4() {
+        Update update = new Update();
+        Criteria criteria = Criteria.where("name").is("jack");
+        criteria.andOperator(Criteria.where("year").gte("2020"));
+        Query query = new Query(criteria);
+
+        query.with(Sort.by(Sort.Direction.ASC, "year"))
+                .with(Sort.by(Sort.Direction.DESC, "name"));
+        return ResponseEntity.ok(mongoTemplate.find(query, Student.class, "c3"));
     }
 
     /**
