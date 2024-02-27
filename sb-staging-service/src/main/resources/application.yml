@@ -1,0 +1,48 @@
+server:
+  port: 7070
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mli_dev_v20?currentSchema=sb_main&$useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      database: sb
+      host: 127.0.0.1
+      port: 27017
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+    database: 0
+  kafka:
+    bootstrap-servers: localhost:9092
+#    listener:
+#      ack-mode: manual
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.sb.service.domain
+
+sb:
+  message:
+    topic: sb_topic_1
+    topics:
+      - sb_topic_2
+    group:
+      groupId-1: sb-group-1
+      groupId-2: sb-group-2
