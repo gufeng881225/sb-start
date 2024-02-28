@@ -59,7 +59,9 @@ public class RedisTests {
 //        System.out.println(redisTemplate.opsForList().index(redisKey, 0));
 //        System.out.println(redisTemplate.opsForList().range(redisKey, 0, 2));
 
-        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
+//        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
+        System.out.println(redisTemplate.opsForList().range(redisKey,0,1));
+        System.out.println(redisTemplate.opsForList().index(redisKey,2));
 //        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
 //        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
     }
