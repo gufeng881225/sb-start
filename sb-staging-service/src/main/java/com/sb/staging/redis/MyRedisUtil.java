@@ -1,6 +1,6 @@
 package com.sb.staging.redis;
 
-import com.sb.staging.json.JsonUtil;
+import com.sb.staging.json.RedisJsonUtil;
 import org.springframework.data.redis.connection.DefaultStringRedisConnection;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -35,7 +35,7 @@ public class MyRedisUtil extends RedisUtil {
             DefaultStringRedisConnection stringRedisConnection = new DefaultStringRedisConnection(redisConnection);
             stringRedisConnection.select(db);
             if (flag_json) {
-                stringRedisConnection.set(key, JsonUtil.obj2String(value));
+                stringRedisConnection.set(key, RedisJsonUtil.obj2String(value));
             } else {
                 stringRedisConnection.set(key, value.toString());
             }

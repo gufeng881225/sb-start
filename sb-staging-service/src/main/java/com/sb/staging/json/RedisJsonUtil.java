@@ -22,9 +22,9 @@ import java.util.List;
  * @Date: 2021/10/18
  * @Desc: TODO Json工具类
  */
-public class JsonUtil {
+public class RedisJsonUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(RedisJsonUtil.class);
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
