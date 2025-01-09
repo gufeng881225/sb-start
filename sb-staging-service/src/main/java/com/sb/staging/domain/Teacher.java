@@ -17,4 +17,10 @@ public class Teacher implements Serializable {
 
     @JsonProperty("code")
     private String code;
+
+    public static Teacher ofName(String userName) {
+        Teacher th = new Teacher();
+        th.setName(userName);
+        return th;
+    }
 }

@@ -9,7 +9,7 @@ package com.sb.staging.function;
  * @since 2.0
  */
 @FunctionalInterface
-public interface InputStreamProvider {
+public interface BIProvider<T, R> {
 
-    void  dos();
+    void take(T t, R r);
 }

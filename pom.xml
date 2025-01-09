@@ -17,6 +17,8 @@
 
     <properties>
         <rversion>1.0.0-SNAPSHOT</rversion>
+        <rxjava2.version>2.2.7</rxjava2.version>
+        <jdk.version>11</jdk.version>
     </properties>
 
     <modules>
@@ -32,6 +34,17 @@
                 <artifactId>lombok</artifactId>
                 <version>RELEASE</version>
                 <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-gateway</artifactId>
+                <version>4.2.0</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>io.reactivex.rxjava2</groupId>
+                <artifactId>rxjava</artifactId>
+                <version>${rxjava2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -87,6 +100,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,3 @@
+#foreach($attr1 in $input.get("attr1"))
+    $!attr1.get("k1") , $!attr1.get("k2");
+#end

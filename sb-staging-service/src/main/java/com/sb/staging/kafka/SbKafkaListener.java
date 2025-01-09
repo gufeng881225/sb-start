@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class SbKafkaListener<K,V> {
 
-    //@KafkaListener(topics = "#{kafkaTopicConfig.kafkaTopics}", groupId = "${sb.message.group.groupId-1}")
+    //@KafkaListener(topics = {"topic1","topic2"}, groupId = "${sb.message.group.groupId-1}")
     @KafkaListener(topics = "#{kafkaTopicConfig.getKafkaTopics()}", groupId = "${sb.message.group.groupId-1}")
     public void consumerMsg(ConsumerRecord<K, V> record) {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
